@@ -2,7 +2,7 @@
   <div class="signup">
     <v-container>
       <h2 class="primary--text text-center">Sign Up</h2>
-      <v-form class="d-block mx-auto" style="max-width: 400px">
+      <v-form class="d-block mx-auto" style="max-width: 400px" ref="form">
         <v-row>
           <v-col cols="12" md="6">
             <v-text-field
@@ -44,11 +44,10 @@
                   v-bind="attrs"
                   @blur="date = parseDate(dateFormatted)"
                   v-on="on"
-                  :rules="inputRules"
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="date"
+                v-model="date_of_birth"
                 no-title
                 @input="menu1 = false"
               ></v-date-picker>
@@ -59,6 +58,7 @@
           :items="items"
           label="Gender"
           :rules="genderRule"
+          v-model="gender"
         ></v-select>
           </v-col>
         </v-row>
@@ -92,7 +92,7 @@
           </v-col>
         </v-row>
         
-        <v-btn flat depressed class="primary my-4 text-capitalize" block>Sign up</v-btn>
+        <v-btn depressed class="primary my-4 text-capitalize" block @click="submit">Sign up</v-btn>
         <p class="text-center">
           Already have an account?
           <router-link to="/Login" class="font-weight-bold primary--text"
@@ -109,8 +109,13 @@ export default {
   name: "Signup",
   data(vm) {
     return {
+      first_name: "",
+      last_name: "",
+      date_of_birth: "",
+      gender: "",
       email: "",
       password: "",
+
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -124,7 +129,7 @@ export default {
       emailRule: [
         function (email) {
           let emailRegex = new RegExp(
-            "^[a-zA-Z]+((._-)[a-zA-Z0-9]+)?@(gmail|yahoo|hotmail).(com|fr|uk|net)$"
+            "^[a-zA-Z0-9]+((._-)[a-zA-Z0-9]+)?@(gmail|yahoo|hotmail).(com|fr|uk|net)$"
           );
           if (!emailRegex.test(email)) {
             return "please enter a valid email adresse";
@@ -146,7 +151,7 @@ export default {
         },
       ],
       confirmPasswordRule: [(password) => password == this.password || "Password not match"],
-      genderRule: [(gender) => gender.length == 0 || "Please select your gender"],
+      genderRule: [(gender) => gender.length >= 0 || "Please select your gender"],
       items: ["Male", "Female"],
     };
   },
@@ -165,8 +170,7 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.loading = !this.loading;
-        console.log(this.title + " " + this.content);
+        console.log(this.first_name + " " + this.last_name + " " + this.date_of_birth + " " + this.gender + " " + this.email + " " + this.password);
       }
     },
     formatDate(date) {
