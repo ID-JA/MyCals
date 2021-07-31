@@ -1,0 +1,19 @@
+@import "../scss/variables";
+
+body {
+    position: relative;
+    background-color: red;
+}
+
+a {
+    text-decoration: none;
+    color: $black-color !important;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+p, h1, h2, h3, h4, h5, ul {
+    margin: 0 !important;
+}

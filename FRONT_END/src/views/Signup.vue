@@ -1,0 +1,192 @@
+<template>
+  <div class="signup">
+    <v-container>
+      <h2 class="primary--text text-center">Sign Up</h2>
+      <v-form class="d-block mx-auto" style="max-width: 400px">
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+          label="Firstname"
+          v-model="first_name"
+          prepend-icon="badge"
+          :rules="name"
+        ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+          label="Lastname"
+          v-model="last_name"
+          prepend-icon="badge"
+          :rules="name"
+        ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" md="6">
+            <!-- Date picker menu -->
+            <v-menu
+              ref="menu1"
+              v-model="menu1"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="dateFormatted"
+                  label="Date"
+                  hint="MM/DD/YYYY format"
+                  persistent-hint
+                  prepend-icon="mdi-calendar"
+                  v-bind="attrs"
+                  @blur="date = parseDate(dateFormatted)"
+                  v-on="on"
+                  :rules="inputRules"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="date"
+                no-title
+                @input="menu1 = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-select
+          :items="items"
+          label="Gender"
+          :rules="genderRule"
+        ></v-select>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+          label="Email"
+          v-model="email"
+          prepend-icon="email"
+          :rules="emailRule"
+        ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+          label="Password"
+          v-model="password"
+          prepend-icon="lock"
+          :rules="passwordRule"
+        ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+          label="Confirm password"
+          prepend-icon="lock"
+          :rules="confirmPasswordRule"
+        ></v-text-field>
+          </v-col>
+        </v-row>
+        
+        <v-btn flat depressed class="primary my-4 text-capitalize" block>Sign up</v-btn>
+        <p class="text-center">
+          Already have an account?
+          <router-link to="/Login" class="font-weight-bold primary--text"
+            >Login in</router-link
+          >
+        </p>
+      </v-form>
+    </v-container>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Signup",
+  data(vm) {
+    return {
+      email: "",
+      password: "",
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      dateFormatted: vm.formatDate(
+        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10)
+      ),
+      menu1: false,
+      menu2: false,
+      emailRule: [
+        function (email) {
+          let emailRegex = new RegExp(
+            "^[a-zA-Z]+((._-)[a-zA-Z0-9]+)?@(gmail|yahoo|hotmail).(com|fr|uk|net)$"
+          );
+          if (!emailRegex.test(email)) {
+            return "please enter a valid email adresse";
+          }
+        },
+      ],
+      passwordRule: [
+        (password) =>
+          password.length >= 8 || "Password must have at least 8 characters",
+      ],
+      name: [
+        function (name) {
+          let nameRegex = new RegExp(
+            "^[a-zA-Z]+$"
+          );
+          if (!nameRegex.test(name)) {
+            return "The name must contain characters only";
+          }
+        },
+      ],
+      confirmPasswordRule: [(password) => password == this.password || "Password not match"],
+      genderRule: [(gender) => gender.length == 0 || "Please select your gender"],
+      items: ["Male", "Female"],
+    };
+  },
+  computed: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    },
+  },
+
+  watch: {
+    date() {
+      this.dateFormatted = this.formatDate(this.date);
+    },
+  },
+
+  methods: {
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.loading = !this.loading;
+        console.log(this.title + " " + this.content);
+      }
+    },
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
+
+      const [month, day, year] = date.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.login {
+  margin-top: 4rem;
+}
+</style>
