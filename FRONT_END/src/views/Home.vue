@@ -1,5 +1,6 @@
 <template>
   <div class="banner">
+    <Navbar />
     <Banner />
     <!-- Why Us Section -->
     <section class="why-us text-center">
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 import Banner from "../components/Home/Banner.vue";
 import WhyComponent from "../components/Home/WhyComponent.vue";
 import TestimonialCard from "../components/Home/TestimonialCard.vue";
@@ -40,6 +42,7 @@ import Footer from "@/components/Footer.vue";
 export default {
   name: "home",
   components: {
+    Navbar,
     Banner,
     WhyComponent,
     TestimonialCard,

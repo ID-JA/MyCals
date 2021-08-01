@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <Navbar />
     <v-container>
       <h2 class="primary--text text-center">Log in</h2>
       <v-form class="d-block mx-auto" style="max-width: 400px">
@@ -33,8 +34,12 @@
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 export default {
   name: "Login",
+  components: {
+    Navbar,
+  },
   data() {
     return {
       email: "",

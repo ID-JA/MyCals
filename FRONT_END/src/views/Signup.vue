@@ -1,5 +1,6 @@
 <template>
   <div class="signup">
+    <Navbar />
     <v-container>
       <h2 class="primary--text text-center">Sign Up</h2>
       <v-form class="d-block mx-auto" style="max-width: 400px" ref="form">
@@ -105,8 +106,12 @@
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 export default {
   name: "Signup",
+  components: {
+    Navbar,
+  },
   data(vm) {
     return {
       first_name: "",
