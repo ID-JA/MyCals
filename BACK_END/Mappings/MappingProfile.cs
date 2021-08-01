@@ -17,6 +17,9 @@ namespace MY_CALS_BACKEND.Mappings
             CreateMap<UserAccount, UserRegisterDTO>(); //Map from Model Object to ModelDTO Object
             CreateMap<UserRegisterDTO, UserAccount>();
 
+            CreateMap<UserAccount, UserForAuthDTO>();
+            CreateMap<UserForAuthDTO, UserAccount>();
+
             CreateMap<UserAccount, UserForDisplayDTO>();
             CreateMap<UserForDisplayDTO, UserAccount>();
 
