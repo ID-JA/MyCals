@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eallpwqyEKX1WKsOX1CSv58y6PZr/6F5u+yaf2Chq/vP1E8ys0Yang3vum2TxLZo2DHs2ICrxi/W+DAn6MhFHQ==",
+  "dgSpecHash": "p2yO5o88DbyD1rcPceRN4QN4HkG6vfwvtBs/JX60N4UromIzpoPcoZr2yd/y4wHS22umijnDlYtNh1rY1gJVIA==",
   "success": true,
-  "projectFilePath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\MY_CALS_BACKEND.csproj",
+  "projectFilePath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\idais\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
@@ -87,6 +87,8 @@
     "C:\\Users\\idais\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\idais\\.nuget\\packages\\sendgrid\\9.24.1\\sendgrid.9.24.1.nupkg.sha512",
+    "C:\\Users\\idais\\.nuget\\packages\\starkbank-ecdsa\\1.3.1\\starkbank-ecdsa.1.3.1.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\idais\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

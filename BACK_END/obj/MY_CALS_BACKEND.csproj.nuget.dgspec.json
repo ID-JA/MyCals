@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\MY_CALS_BACKEND.csproj": {}
+    "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {}
   },
   "projects": {
-    "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\MY_CALS_BACKEND.csproj": {
+    "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\MY_CALS_BACKEND.csproj",
+        "projectUniqueName": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
         "projectName": "MY_CALS_BACKEND",
-        "projectPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\MY_CALS_BACKEND.csproj",
+        "projectPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
         "packagesPath": "C:\\Users\\idais\\.nuget\\packages\\",
-        "outputPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MY_CALCS_BACKEND\\MY_CALCS_BACKEND\\obj\\",
+        "outputPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\idais\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -81,6 +81,10 @@
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[6.12.0, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.24.1, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
