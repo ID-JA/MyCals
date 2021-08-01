@@ -93,7 +93,7 @@
           </v-col>
         </v-row>
         
-        <v-btn depressed class="primary my-4 text-capitalize" block @click="submit">Sign up</v-btn>
+        <v-btn depressed class="primary my-4 text-capitalize" block @click="submit" :loading="signupButtonLoading">Sign up</v-btn>
         <p class="text-center">
           Already have an account?
           <router-link to="/Login" class="font-weight-bold primary--text"
@@ -120,6 +120,7 @@ export default {
       gender: "",
       email: "",
       password: "",
+      signupButtonLoading: false,
 
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()

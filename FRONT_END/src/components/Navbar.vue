@@ -12,10 +12,10 @@
           <span class="line"></span>
         </div>
         <div class="nav__links">
-          <router-link to="/">home</router-link>
+          <router-link to="/" exact>home</router-link>
           <router-link to="/About">about us</router-link>
-          <router-link to="/Login">log in</router-link>
-          <router-link to="/Signup">sign up</router-link>
+          <router-link to="/Login" >log in</router-link>
+          <router-link to="/Signup" >sign up</router-link>
         </div>
       </v-container>
     </v-app-bar>
@@ -64,6 +64,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../scss/variables.scss";
+
+a.router-link-exact-active {
+  color: $purple-color !important;
+}
 
 .nav__links > a {
   margin: 10px;

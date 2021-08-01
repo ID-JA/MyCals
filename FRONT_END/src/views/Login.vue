@@ -19,7 +19,7 @@
         <router-link to="" class="font-weight-bold"
           >Forgot password?</router-link
         >
-        <v-btn flat depressed class="primary my-4 text-capitalize" block
+        <v-btn depressed class="primary my-4 text-capitalize" block :loading="loginButtonLoading" @click="login"
           >Log in</v-btn
         >
         <p class="text-center">
@@ -58,8 +58,15 @@ export default {
         (password) =>
           password.length >= 8 || "Password must have at least 8 characters",
       ],
+      loginButtonLoading: false,
     };
   },
+
+  methods: {
+    login() {
+      this.loginButtonLoading = true;
+    }
+  }
 };
 </script>
 

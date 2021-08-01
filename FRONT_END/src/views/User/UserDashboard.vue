@@ -39,7 +39,7 @@
         MyCals
       </div>
 
-      <v-list nav>
+      <v-list nav shaped>
         <v-list-item-group v-model="drawer">
           <v-list-item
             v-for="item in items"
@@ -92,7 +92,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="Ratingdialog = false">
+                <v-btn color="primary" text :loading="rateusLoading" @click="rateApp()">
                   Share
                 </v-btn>
               </v-card-actions>
@@ -127,7 +127,7 @@
             Add new meal
           </v-btn>
         </template>
-
+        <!-- Popup for adding new meal -->
         <v-card>
           <v-card-title class="primary white--text">
             Add new meal
@@ -188,7 +188,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text class="text-lowercase"> Add </v-btn>
+            <v-btn color="primary" text class="text-lowercase" :loading="AddMealloadingButton"> Add </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -209,6 +209,8 @@ export default {
       description: "",
       mealDate: "",
       time: "",
+      AddMealloadingButton: false,
+      rateusLoading: false,
       rating: "",
       drawer: null,
       items: [
@@ -302,12 +304,11 @@ export default {
       const [month, day, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
-    // Search for a meal
-    getSearchingMeal() {
-      let filteredMeals = this.desserts.filter(obj => obj.name.includes(this.searchingMeal));
-      if(filteredMeals.length > 0) {
-        this.desserts = filteredMeals;
-      }
+    rateApp() {
+      this.rateusLoading = true;
+      console.log(this.rating + "" + this.opinion);
+      this.rateusLoading = false;
+      this.Ratingdialog = false;
     }
   },
 };
