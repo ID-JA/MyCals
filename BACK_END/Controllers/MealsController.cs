@@ -24,7 +24,6 @@ namespace MY_CALS_BACKEND.Controllers
         private int userId;
         public MealsController(IRepoMeals meals, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
-            //userId = Int16.Parse(httpContextAccessor.HttpContext.User.FindFirst("nameid").Value);
             userId = Int16.Parse(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             _repoMeals = meals;
             _mapper = mapper;
