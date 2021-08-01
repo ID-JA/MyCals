@@ -4,7 +4,8 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
-import UserDashboard from "../views/UserDashboard.vue";
+import UserDashboard from "../views/User/UserDashboard.vue";
+import UserStats from "../views/User/UserStats.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/UserDashboard",
     name: "UserDashboard",
     component: UserDashboard,
+  },
+  {
+    path: "/UserStats",
+    name: "UserStats",
+    component: UserStats,
   },
 ];
 
