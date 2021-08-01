@@ -81,7 +81,7 @@ namespace MY_CALS_BACKEND
             services.AddScoped<IRepoUserAccount, RepoUserAccount>();
             services.AddScoped<IRepoMeals, RepoMeals>();
             services.AddTransient<IMailService, SendGridMailService>();
-
+            
             //services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
