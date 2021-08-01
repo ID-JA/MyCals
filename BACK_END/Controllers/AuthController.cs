@@ -98,7 +98,7 @@ namespace MY_CALS_BACKEND.Controllers
                 if (result.IsCompletedSuccessfully)
                 {
                     var roles = await _userManager.GetRolesAsync(user);
-                    var userDisplay = _mapper.Map<UserForDisplayDTO>(user);
+                    var userDisplay = _mapper.Map<UserForAuthDTO>(user);
 
 
                     userDisplay.Token = GenerateJwtToken(user, roles).Result;

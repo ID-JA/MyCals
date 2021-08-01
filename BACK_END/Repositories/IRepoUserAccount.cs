@@ -1,4 +1,5 @@
-﻿using MY_CALS_BACKEND.Dto.UserAccount;
+﻿using AutoMapper;
+using MY_CALS_BACKEND.Dto.UserAccount;
 using MY_CALS_BACKEND.Models;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,30 @@ namespace MY_CALS_BACKEND.Repositories
     public interface IRepoUserAccount
     {
         public List<UserAccount> GetUsersAccounts();
-        public UserForDisplayDTO GetUserById(int Id);
-        public void DeleteUserAccount(int Id);
+        public  Task<UserAccount> GetUserById(int Id);
+        public Task<bool> DeleteUserAccount(int Id);
+        public Task<bool> Save();
     }
 
 
     public class RepoUserAccount : IRepoUserAccount
     {
         private ApplicationDbContext _dbContext;
-        public RepoUserAccount(ApplicationDbContext dbContext)
+        private readonly IMapper _mapper;
+        public RepoUserAccount(ApplicationDbContext dbContext,IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
-        public void DeleteUserAccount(int Id)
+        public async Task<bool> DeleteUserAccount(int Id)
         {
-            throw new NotImplementedException();
+            var userToDelete = await _dbContext.UserAccounts.FindAsync(Id);
+            if (userToDelete !=null)
+            {
+                _dbContext.UserAccounts.Remove(userToDelete);
+                return true;
+            }
+            return false;
         }
 
         public List<UserAccount> GetUsersAccounts()
@@ -33,9 +43,15 @@ namespace MY_CALS_BACKEND.Repositories
             return allUsers;
         }
 
-        public UserForDisplayDTO GetUserById(int Id)
+        public async Task<UserAccount> GetUserById(int Id)
         {
-            throw new NotImplementedException();
+            var user = await _dbContext.UserAccounts.FindAsync(Id);
+            return user;
+        }
+
+        public async Task<bool> Save()
+        {
+            return (await _dbContext.SaveChangesAsync() > 0);
         }
     }
 }
