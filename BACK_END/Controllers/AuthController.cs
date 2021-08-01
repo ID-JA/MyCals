@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using MY_CALS_BACKEND.Dto;
 using MY_CALS_BACKEND.Dto.UserAccount;
 using MY_CALS_BACKEND.Models;
+using MY_CALS_BACKEND.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,11 +27,12 @@ namespace MY_CALS_BACKEND.Controllers
         private readonly IMapper _mapper;
         private readonly SignInManager<UserAccount> _signInManager;
         private readonly IConfiguration _iConfiguration;
-
+        private readonly IMailService _mailService;
 
         public AuthController(UserManager<UserAccount> userManager,
         RoleManager<Role> roleManager,
         SignInManager<UserAccount> signInManager,
+        IMailService mailService,
         IConfiguration iConfiguration, IMapper mapper)
         {
             _userManager = userManager;
@@ -38,6 +40,7 @@ namespace MY_CALS_BACKEND.Controllers
             _signInManager = signInManager;
             _iConfiguration = iConfiguration;
             _mapper = mapper;
+            _mailService = mailService;
         }
 
 
@@ -100,7 +103,7 @@ namespace MY_CALS_BACKEND.Controllers
 
                     userDisplay.Token = GenerateJwtToken(user, roles).Result;
                     userDisplay.Role = roles[0];
-                    
+                    await _mailService.SendEmailAsync(loginDTO.Email, "New login", "<h1>New login to your account noticed</h1><p>new login to your account at " + DateTime.Now + "</p>");
 
                     return Ok(
                        new

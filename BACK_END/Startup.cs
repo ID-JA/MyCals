@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MY_CALS_BACKEND.Models;
 using MY_CALS_BACKEND.Repositories;
+using MY_CALS_BACKEND.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +79,11 @@ namespace MY_CALS_BACKEND
 
 
             services.AddScoped<IRepoUserAccount, RepoUserAccount>();
+            services.AddScoped<IRepoMeals, RepoMeals>();
+            services.AddTransient<IMailService, SendGridMailService>();
+
+            //services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
