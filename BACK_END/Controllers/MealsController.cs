@@ -60,9 +60,27 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         // PUT api/<MealsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("editmeal/{id}")]
+        [Authorize]
+        public async Task<IActionResult> EditMeal(int id, MealForEditDTO mealForEdit)
         {
+            var meal = await _repoMeals.GetUserMealById(id);
+            if (meal != null)
+            {
+                if (meal.Id_User == userId)
+                {
+                    await _repoMeals.EditMeal(id, mealForEdit);
+                    var result = await _repoMeals.SaveMeal();
+                    if (result)
+                    {
+                        return Ok("Meal has been updated successfully");
+                    }
+                    return BadRequest("Somethings worng happened, please try again ");
+                }
+                return BadRequest("Bad Action !!!");
+            }
+            return NotFound("This meal doesn't existe try again");
+
         }
 
         // DELETE api/<MealsController>/5
@@ -82,11 +100,11 @@ namespace MY_CALS_BACKEND.Controllers
                     {
                         return Ok("Meal has been deleted successfully");
                     }
-
+                    return BadRequest("Somethings worng happened, please try again ");
                 }
                 return BadRequest("Bad Action");
             }
-            return NotFound("This meal doesn't exist try again");
+            return NotFound("This meal doesn't existe try again");
         }
     }
 }
