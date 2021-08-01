@@ -22,7 +22,7 @@ namespace MY_CALS_BACKEND.Controllers
         private readonly IRepoMeals _repoMeals;
         private readonly IMapper _mapper;
         private int userId;
-        public MealsController(IRepoMeals meals, IMapper mapper ,IHttpContextAccessor httpContextAccessor)
+        public MealsController(IRepoMeals meals, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             //userId = Int16.Parse(httpContextAccessor.HttpContext.User.FindFirst("nameid").Value);
             userId = Int16.Parse(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -66,9 +66,27 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         // DELETE api/<MealsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("deletemeal/{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteMeal(int id)
         {
+            var meal = await _repoMeals.GetUserMealById(id);
+            if (meal != null)
+            {
+
+                if (meal.Id_User == userId)
+                {
+                     await _repoMeals.DeleteMeal(id);
+                    var result = await _repoMeals.SaveMeal();
+                    if (result)
+                    {
+                        return Ok("Meal has been deleted successfully");
+                    }
+
+                }
+                return BadRequest("Bad Action");
+            }
+            return NotFound("This meal doesn't exist try again");
         }
     }
 }

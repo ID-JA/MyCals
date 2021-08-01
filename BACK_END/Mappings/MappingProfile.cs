@@ -23,6 +23,8 @@ namespace MY_CALS_BACKEND.Mappings
             CreateMap<Meal, MealForAddDTO>();
             CreateMap<MealForAddDTO, Meal>();
 
+            CreateMap<Meal, MealForDisplayDTO>();
+            CreateMap<MealForDisplayDTO, Meal>();
         }
     }
 }
