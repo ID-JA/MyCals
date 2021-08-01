@@ -12,7 +12,7 @@ namespace MY_CALS_BACKEND.Repositories
     public interface IRepoMeals
     {
         public List<Meal> GetMeals();
-        public List<Meal> GetMealsOfUser(int Id_User);
+        public List<Meal> GetMealsOfUser(int Id_User); 
         public void AddMeal<T>(T entity) where T : class;
         public Task<bool> DeleteMeal(int Id_Meal);
         public Task<bool> EditMeal(int Id_Meal,MealForEditDTO mealEditDTO);

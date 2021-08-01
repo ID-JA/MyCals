@@ -16,7 +16,7 @@ namespace MY_CALS_BACKEND.Controllers
         [HttpGet("getMe")]
         public async Task<IActionResult> Get()
         {
-            return Ok("JAMAL ID AISSA JAMAL ID AISSA ID AISSA JAMAL");
+            return Ok("My Cals App");
         }
 
     }
