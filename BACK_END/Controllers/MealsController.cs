@@ -31,10 +31,24 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         // GET: api/<MealsController>
-        [HttpGet("mymeals")]
+        [HttpGet("meals")]
+        [Authorize(Roles ="Admin")]
         public IEnumerable<Meal> GetMeals()
         {
             return _repoMeals.GetMeals();
+        }
+
+        [HttpGet("mymeals")]
+        [Authorize(Roles = "User")]
+        public IActionResult GetUserMeals()
+        {
+            var mealsDisplayDTO = new List<MealForDisplayDTO>();
+            var mealsOfUser = _repoMeals.GetMealsOfUser(userId);
+            foreach (var meal in mealsOfUser)
+            {
+                mealsDisplayDTO.Add(_mapper.Map<MealForDisplayDTO>(meal));
+            }
+            return Ok(mealsDisplayDTO);
         }
 
         // GET api/<MealsController>/5

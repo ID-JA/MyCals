@@ -12,6 +12,7 @@ namespace MY_CALS_BACKEND.Repositories
     public interface IRepoMeals
     {
         public List<Meal> GetMeals();
+        public List<Meal> GetMealsOfUser(int Id_User);
         public void AddMeal<T>(T entity) where T : class;
         public Task<bool> DeleteMeal(int Id_Meal);
         public Task<bool> EditMeal(int Id_Meal,MealForEditDTO mealEditDTO);
@@ -69,6 +70,12 @@ namespace MY_CALS_BACKEND.Repositories
         public List<Meal> GetMeals()
         {
             return _dbContext.Meals.ToList();
+        }
+
+        public List<Meal> GetMealsOfUser(int Id_User)
+        {
+            var mealsOfuser = _dbContext.Meals.Where(m => m.Id_User == Id_User).ToList();
+            return mealsOfuser;
         }
 
         public async Task<MealForDisplayDTO> GetUserMealById(int Id)
