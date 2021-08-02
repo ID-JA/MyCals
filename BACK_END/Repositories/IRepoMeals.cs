@@ -12,10 +12,11 @@ namespace MY_CALS_BACKEND.Repositories
     public interface IRepoMeals
     {
         public List<Meal> GetMeals();
-        public List<Meal> GetMealsOfUser(int Id_User); 
+        public List<Meal> GetMealsOfUser(int Id_User);
+        public  Meal GetMealOfUser(int id_User,int id_Meal);
         public void AddMeal<T>(T entity) where T : class;
         public Task<bool> DeleteMeal(int Id_Meal);
-        public Task<bool> EditMeal(int Id_Meal,MealForEditDTO mealEditDTO);
+        public Task<bool> EditMeal(int Id_Meal, MealForEditDTO mealEditDTO);
         public Task<bool> SaveMeal();
 
         public Task<MealForDisplayDTO> GetUserMealById(int Id);
@@ -54,7 +55,7 @@ namespace MY_CALS_BACKEND.Repositories
         public async Task<bool> EditMeal(int Id_Meal, MealForEditDTO mealEditDTO)
         {
             var mealToEdit = await _dbContext.Meals.FindAsync(Id_Meal);
-            if(mealToEdit != null)
+            if (mealToEdit != null)
             {
                 mealToEdit.Name = mealEditDTO.Name;
                 mealToEdit.Description = mealEditDTO.Description;
@@ -65,6 +66,12 @@ namespace MY_CALS_BACKEND.Repositories
             }
 
             return false;
+        }
+
+        public Meal GetMealOfUser(int id_User, int id_Meal)
+        {
+            var meal = _dbContext.Meals.FirstOrDefault(m => m.Id_Meal == id_Meal && m.Id_User == id_User);
+            return meal;
         }
 
         public List<Meal> GetMeals()
