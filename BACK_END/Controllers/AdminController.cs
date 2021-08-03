@@ -84,7 +84,7 @@ namespace MY_CALS_BACKEND.Controllers
                 if (user.Id != userId)
                 {
                     var mealsOfUser = new List<MealForDisplayDTO>();
-                    var meals =  _repoMeals.GetMealsOfUser(id);
+                    var meals = _repoMeals.GetMealsOfUser(id);
 
                     foreach (var meal in meals)
                     {
@@ -97,6 +97,71 @@ namespace MY_CALS_BACKEND.Controllers
             return NotFound("This user dosen't existe 💢 ");
         }
 
+        [HttpGet("users/{id}/meals/{id_meal}")]
+
+        public async Task<IActionResult> GetUserMeal(int id, int id_meal)
+        {
+            var user = await _repoUserAccount.GetUserById(id);
+            if (user != null)
+            {
+                if (user.Id != userId)
+                {
+                    var mealOfUser = _repoMeals.GetMealOfUser(id, id_meal);
+                    if (mealOfUser != null && mealOfUser.Id_User == user.Id)
+                    {
+                        var mealOfUserDTO = _mapper.Map<MealForDisplayDTO>(mealOfUser);
+                        return Ok(mealOfUserDTO);
+                    }
+                    return NotFound("This meal dosen't existe 💢!!!");
+                }
+                return BadRequest("Bad Action 😑 !!!");
+            }
+            return NotFound("This user dosen't existe 💢 ");
+        }
+
+        [HttpDelete("users/{id}/meals/{id_meal}/delete")]
+
+        public async Task<IActionResult> DeleteUserMeal(int id, int id_meal)
+        {
+            var user = await _repoUserAccount.GetUserById(id);
+            if (user != null)
+            {
+                if (user.Id != userId)
+                {
+                     await _repoMeals.DeleteMeal(id_meal);
+                    var result = await _repoMeals.SaveMeal();
+                    if (result)
+                    {
+                        return Ok("This Meal has been deleted successfully 👍 !!!");
+                    }
+                    return NotFound("This meal dosen't existe 💢!!!");
+                }
+                return BadRequest("Bad Action 😑 !!!");
+            }
+            return NotFound("This user dosen't existe 💢 ");
+        }
+
+        [HttpPut("users/{id}/meals/{id_meal}/edit")]
+
+        public async Task<IActionResult> EditUserMeal(int id, int id_meal,MealForEditDTO mealForEditDTO)
+        {
+            var user = await _repoUserAccount.GetUserById(id);
+            if (user != null)
+            {
+                if (user.Id != userId)
+                {
+                    await _repoMeals.EditMeal(id_meal,mealForEditDTO) ;
+                    var result = await _repoMeals.SaveMeal();
+                    if (result)
+                    {
+                        return Ok("This Meal has been  updated successfully 👍 !!!");
+                    }
+                    return NotFound("This meal dosen't existe 💢!!!");
+                }
+                return BadRequest("Bad Action 😑 !!!");
+            }
+            return NotFound("This user dosen't existe 💢 ");
+        }
 
         [HttpDelete("users/delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
