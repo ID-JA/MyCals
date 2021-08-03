@@ -5,7 +5,10 @@ import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import UserDashboard from "../views/User/UserDashboard.vue";
+import Meals from "../views/User/Meals.vue";
 import UserStats from "../views/User/UserStats.vue";
+import managerDashboard from "../views/Manager/managerDashboard.vue";
+
 
 Vue.use(VueRouter);
 
@@ -34,11 +37,21 @@ const routes = [
     path: "/UserDashboard",
     name: "UserDashboard",
     component: UserDashboard,
+    children: [
+      {
+        path: "Meals",
+        component: Meals,
+      },
+      {
+        path: "UserStats",
+        component: UserStats,
+      }
+    ]
   },
   {
-    path: "/UserStats",
-    name: "UserStats",
-    component: UserStats,
+    path: "/managerDashboard",
+    name: "managerDashboard",
+    component: managerDashboard,
   },
 ];
 
