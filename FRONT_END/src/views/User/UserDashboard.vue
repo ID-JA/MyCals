@@ -83,8 +83,8 @@
                   length="5"
                   size="25"
                 ></v-rating>
-                <v-form>
-                  <v-textarea v-model="opinion" label="Opinion"></v-textarea>
+                <v-form ref="opinionForm">
+                  <v-textarea v-model="opinion" :rules="opinionRule" label="Opinion"></v-textarea>
                 </v-form>
               </v-card-text>
 
@@ -129,7 +129,7 @@ export default {
       // Rating data
       Ratingdialog: false,
       opinion: "",
-      rating: "",
+      rating: 0,
       rateusLoading: false,
 
       // Binding All links
@@ -141,15 +141,19 @@ export default {
         { title: "Settings", route: "/Settings" },
         { title: "Sign out", route: "/Signout" },
       ],
+      // Rule for description length
+      opinionRule: [(value) => value.length >= 20 || "Opinion must be 20 characters or more"]
     }
   },
   methods: {
     // Rating the app functionality
     rateApp() {
-      this.rateusLoading = true;
-      console.log(this.rating + "" + this.opinion);
-      this.rateusLoading = false;
-      this.Ratingdialog = false;
+      if(this.$refs.opinionForm.validate() && this.rating > 0) {
+        this.rateusLoading = true;
+        console.log(this.rating + "" + this.opinion);
+        this.rateusLoading = false;
+        this.Ratingdialog = false;
+      }
     },
   }
 };
