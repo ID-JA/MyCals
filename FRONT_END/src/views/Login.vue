@@ -27,12 +27,6 @@
           prepend-icon="email"
           :rules="emailRule"
         ></v-text-field>
-        <!-- <v-text-field
-          label="Password"
-          v-model="loggedinUser.Password"
-          prepend-icon="lock"
-          :rules="passwordRule"
-        ></v-text-field> -->
         <v-text-field
             v-model="loggedinUser.Password"
             prepend-icon="lock"
@@ -95,10 +89,16 @@ export default {
       ],
       passwordRule: [
         (password) =>
-          password.length >= 2 || "Password must have at least 8 characters",
+          password.length >= 8 || "Password must have at least 8 characters",
       ],
       loginButtonLoading: false,
     };
+  },
+
+  computed: {
+    getCredentials() {
+      return this.$store.state.currentUserCredentials;
+    }
   },
 
   methods: {
@@ -112,9 +112,8 @@ export default {
           this.loginButtonLoading = false;
           // Get the token
           if(response.status === 200) {
-            this.$store.dispatch("setToken", response.data.userDisplay);
-            console.log(this.$store.state.userDisplay);
-            // this.$router.push("/userDashboard");
+            this.$store.dispatch("getUserCredentials", {...response.data.userDisplay});
+            this.$router.push("userDashboard");
           }
 
         })

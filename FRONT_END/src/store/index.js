@@ -5,13 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentUser: {},
+    currentUserCredentials: {},
   },
   mutations: {
-    setToken: (state, payload) => {
-      state.currentUser = {...payload};
+    getUserCredentials: (state, credentials) => {
+      state.currentUserCredentials = {...credentials};
     }
   },
-  actions: {},
+  actions: {
+    getUserCredentials: (context, credentials) => {
+      context.commit('getUserCredentials', {...credentials});
+    }
+  },
   modules: {},
 });
