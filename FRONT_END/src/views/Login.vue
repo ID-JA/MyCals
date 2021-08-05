@@ -113,7 +113,7 @@ export default {
           // Get the token
           if(response.status === 200) {
             this.$store.dispatch("getUserCredentials", {...response.data.userDisplay});
-            this.$router.push("userDashboard");
+            this.$router.push("/userDashboard/Meals");
           }
 
         })

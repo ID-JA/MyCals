@@ -82,33 +82,33 @@
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-text-field
-                              v-model="editedItem.meal"
+                              v-model="editedItem.Name"
                               label="Meal name"
                               :rules="mealNameRule"
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
                             <v-text-field
-                              v-model="editedItem.calories"
+                              v-model="editedItem.Calories"
                               label="Calories"
                               :rules="mealCaloriesRules"
                             ></v-text-field>
                           </v-col>
                         </v-row>
                         <v-textarea
-                          v-model="editedItem.description"
+                          v-model="editedItem.Description"
                           label="description"
                           :rules="descriptionRules"
                         ></v-textarea>
                         <v-row justify="center">
                           <v-col class="d-flex justify-center">
                             <v-date-picker
-                              v-model="editedItem.date"
+                              v-model="editedItem.Date"
                             ></v-date-picker>
                           </v-col>
                           <v-col class="d-flex justify-center">
                             <v-time-picker
-                              v-model="editedItem.time"
+                              v-model="editedItem.Time"
                               format="24hr"
                             ></v-time-picker>
                           </v-col>
@@ -177,34 +177,36 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: "meal",
+          text: "name",
           align: "start",
-          value: "meal",
+          value: "Name",
           filterable: true,
         },
-        { text: "description", value: "description", filterable: false },
-        { text: "date", value: "date", filterable: false },
-        { text: "time", value: "time", filterable: false },
-        { text: "Calories", value: "calories", filterable: false },
+        { text: "description", value: "Description", filterable: false },
+        { text: "date", value: "Date", filterable: false },
+        { text: "time", value: "Time", filterable: false },
+        { text: "Calories", value: "Calories", filterable: false },
         { text: "Actions", value: "actions", filterable: false },
       ],
       meals: [],
       editedIndex: -1,
       editedItem: {
-        id: null,
-        meal: "",
-        description: "",
-        date: null,
-        time: null,
-        calories: 0,
+        Id_Meal: null,
+        Name: "",
+        Description: "",
+        Date: null,
+        Time: null,
+        Calories: 0,
+        Id_User: 0,
       },
       defaultItem: {
-        id: null,
-        meal: "",
-        description: "",
-        date: null,
-        time: null,
-        calories: 0,
+        Id_Meal: null,
+        Name: "",
+        Description: "",
+        Date: null,
+        Time: null,
+        Calories: 0,
+        Id_User: 0,
       },
 
       // Meal Input Rules
@@ -270,20 +272,22 @@ export default {
     initialize() {
       this.meals = [
         {
-          id: 1,
-          meal: "Frozen Yogurt",
-          description: "description A",
-          date: new Date().toLocaleDateString("en-US"),
-          time: new Date().getHours() + ":" + new Date().getMinutes(),
-          calories: 159,
+          Id_Meal: 1,
+          Name: "Frozen Yogurt",
+          Description: "description A",
+          Date: new Date().toLocaleDateString("en-US"),
+          Time: new Date().getHours() + ":" + new Date().getMinutes(),
+          Calories: 159,
+          Id_User: 1,
         },
         {
-          id: 2,
-          meal: "Frozen Yogurt",
-          description: "description A",
-          date: new Date().toLocaleDateString("en-US"),
-          time: new Date().getHours() + ":" + new Date().getMinutes(),
-          calories: 159,
+          Id_Meal: 2,
+          Name: "Frozen Yogurt",
+          Description: "description A",
+          Date: new Date().toLocaleDateString("en-US"),
+          Time: new Date().getHours() + ":" + new Date().getMinutes(),
+          Calories: 159,
+          Id_User: 1,
         },
       ];
     },
