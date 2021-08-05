@@ -327,6 +327,17 @@ export default {
       // if (this.$refs.mealsForm.validate()) {
         if (this.editedIndex > -1) {
           Object.assign(this.meals[this.editedIndex], this.editedItem);
+          // API
+          let editItem = {
+            Name: this.editedItem.name,
+            Date: this.editedItem.date+"T"+this.editedItem.time,
+            Description: this.editedItem.description,
+            Calories: this.editedItem.calories
+          }
+          createApiEndPoints(END_POINTS.UPDATE_MEAL+""+this.editedItem.id_Meal)
+            .update({...editItem})
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
         } else {
           this.meals.push(this.editedItem);
           // Add meal to the database

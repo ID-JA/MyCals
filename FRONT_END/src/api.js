@@ -7,6 +7,7 @@ export const END_POINTS = {
 	USER_MEALS: "meals/mymeals",
 	ADD_MEAL: "meals/addmeal",
 	DELETE_MEAL: "meals/deletemeal/",
+	UPDATE_MEAL: "meals/editmeal/",
 };
 
 export const authAxois = axios.create({
@@ -25,5 +26,6 @@ export const createApiEndPoints = (endPoint) => {
 		fetch: () => authAxois.get(url),
 		create: (newRecord) => authAxois.post(url, newRecord),
 		delete: () => authAxois.delete(url),
+		update: (editedRecord) => authAxois.put(url, editedRecord),
 	};
 };
