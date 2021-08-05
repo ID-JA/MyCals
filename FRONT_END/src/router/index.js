@@ -37,6 +37,19 @@ const routes = [
     path: "/UserDashboard",
     name: "UserDashboard",
     component: UserDashboard,
+    // beforeEnter: (to, from, next) => {
+    //   if(this.$store.state.userDisplay != null) {
+
+    //     next("/userDashboard/Meals");
+
+    //   } else {
+
+    //     next(false);
+
+    //     // afficher erreur
+
+    //   }
+    // },
     children: [
       {
         path: "Meals",

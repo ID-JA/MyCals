@@ -35,13 +35,14 @@ namespace MY_CALS_BACKEND
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
 
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
             });
+            services.AddCors();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -94,13 +95,20 @@ namespace MY_CALS_BACKEND
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(options =>
+
+                options.WithOrigins("http://localhost:8080")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+
+            );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
 
             app.UseEndpoints(endpoints =>

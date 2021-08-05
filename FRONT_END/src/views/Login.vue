@@ -3,23 +3,23 @@
     <Navbar />
     <v-container>
       <h2 class="primary--text text-center">Log in</h2>
-      <v-form class="d-block mx-auto" style="max-width: 400px">
+      <v-form @submit.prevent="loginHandle" class="d-block mx-auto" style="max-width: 400px">
         <v-text-field
           label="Email"
-          v-model="email"
+          v-model="loggedinUser.Email"
           prepend-icon="email"
           :rules="emailRule"
         ></v-text-field>
         <v-text-field
           label="Password"
-          v-model="password"
+          v-model="loggedinUser.Password"
           prepend-icon="lock"
           :rules="passwordRule"
         ></v-text-field>
         <router-link to="" class="font-weight-bold"
           >Forgot password?</router-link
         >
-        <v-btn depressed class="primary my-4 text-capitalize" block :loading="loginButtonLoading" @click="login"
+        <v-btn depressed class="primary my-4 text-capitalize" block :loading="loginButtonLoading" @click="loginHandle"
           >Log in</v-btn
         >
         <p class="text-center">
@@ -35,6 +35,8 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import { END_POINTS, createApiEndPoints } from "@/api.js";
+
 export default {
   name: "Login",
   components: {
@@ -42,8 +44,10 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
+      loggedinUser: {
+        Email: "",
+        Password: "",
+      },
       emailRule: [
         function (email) {
           let emailRegex = new RegExp(
@@ -56,15 +60,29 @@ export default {
       ],
       passwordRule: [
         (password) =>
-          password.length >= 8 || "Password must have at least 8 characters",
+          password.length >= 2 || "Password must have at least 8 characters",
       ],
       loginButtonLoading: false,
     };
   },
 
   methods: {
-    login() {
-      this.loginButtonLoading = true;
+    loginHandle() {
+      
+      createApiEndPoints(END_POINTS.AUTH_LOGIN)
+        .create({...this.loggedinUser})
+        .then((response) => {
+
+          // Get the token
+          if(response.status === 200) {
+            this.$store.dispatch("setToken", response.data.userDisplay);
+            console.log(this.$store.state.userDisplay);
+            // this.$router.push("/userDashboard");
+          }
+
+        })
+        .then(error => console.log(error));
+
     }
   }
 };
