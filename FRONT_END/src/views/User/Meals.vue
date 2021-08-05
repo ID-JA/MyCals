@@ -192,7 +192,7 @@ export default {
       meals: [],
       editedIndex: -1,
       editedItem: {
-        // id_Meal: null,
+        id_Meal: 0,
         name: "",
         description: "",
         date: null,
@@ -201,7 +201,7 @@ export default {
         // id_User: 0,
       },
       defaultItem: {
-        // id_Meal: null,
+        id_Meal: 0,
         name: "",
         description: "",
         date: null,
@@ -299,6 +299,11 @@ export default {
     deleteItemConfirm() {
       this.meals.splice(this.editedIndex, 1);
       // API
+      createApiEndPoints(END_POINTS.DELETE_MEAL+""+this.editedItem.id_Meal)
+        .delete()
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+
       this.closeDelete();
       this.snackbarSuccess = true;
     },

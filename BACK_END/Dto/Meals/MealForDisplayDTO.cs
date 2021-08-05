@@ -7,6 +7,7 @@ namespace MY_CALS_BACKEND.Dto.Meals
 {
     public class MealForDisplayDTO
     {
+        public int Id_Meal { get; set; }
         public int Id_User { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
