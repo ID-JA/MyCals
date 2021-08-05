@@ -82,33 +82,33 @@
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-text-field
-                              v-model="editedItem.Name"
+                              v-model="editedItem.name"
                               label="Meal name"
                               :rules="mealNameRule"
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
                             <v-text-field
-                              v-model="editedItem.Calories"
+                              v-model="editedItem.calories"
                               label="Calories"
                               :rules="mealCaloriesRules"
                             ></v-text-field>
                           </v-col>
                         </v-row>
                         <v-textarea
-                          v-model="editedItem.Description"
+                          v-model="editedItem.description"
                           label="description"
                           :rules="descriptionRules"
                         ></v-textarea>
                         <v-row justify="center">
                           <v-col class="d-flex justify-center">
                             <v-date-picker
-                              v-model="editedItem.Date"
+                              v-model="editedItem.date"
                             ></v-date-picker>
                           </v-col>
                           <v-col class="d-flex justify-center">
                             <v-time-picker
-                              v-model="editedItem.Time"
+                              v-model="editedItem.time"
                               format="24hr"
                             ></v-time-picker>
                           </v-col>
@@ -147,7 +147,7 @@
               </v-dialog>
             </v-toolbar>
           </template>
-          <template v-slot:item.actions="{ item }">
+          <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
               mdi-pencil
             </v-icon>
@@ -163,6 +163,7 @@
 </template>
 
 <script>
+import { END_POINTS, createApiEndPoints } from "@/api.js";
 export default {
   name: "Meals",
   data(vm) {
@@ -179,34 +180,34 @@ export default {
         {
           text: "name",
           align: "start",
-          value: "Name",
+          value: "name",
           filterable: true,
         },
-        { text: "description", value: "Description", filterable: false },
-        { text: "date", value: "Date", filterable: false },
-        { text: "time", value: "Time", filterable: false },
-        { text: "Calories", value: "Calories", filterable: false },
+        { text: "description", value: "description", filterable: false },
+        { text: "date", value: "date", filterable: false },
+        { text: "time", value: "time", filterable: false },
+        { text: "Calories", value: "calories", filterable: false },
         { text: "Actions", value: "actions", filterable: false },
       ],
       meals: [],
       editedIndex: -1,
       editedItem: {
-        Id_Meal: null,
-        Name: "",
-        Description: "",
-        Date: null,
-        Time: null,
-        Calories: 0,
-        Id_User: 0,
+        // id_Meal: null,
+        name: "",
+        description: "",
+        date: null,
+        time: null,
+        calories: 0.0,
+        // id_User: 0,
       },
       defaultItem: {
-        Id_Meal: null,
-        Name: "",
-        Description: "",
-        Date: null,
-        Time: null,
-        Calories: 0,
-        Id_User: 0,
+        // id_Meal: null,
+        name: "",
+        description: "",
+        date: null,
+        time: null,
+        calories: 0.0,
+        // id_User: 0,
       },
 
       // Meal Input Rules
@@ -264,32 +265,23 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
+  mounted() {
+    // Get Meals of current user
+      this.initialize();
   },
 
   methods: {
     initialize() {
-      this.meals = [
-        {
-          Id_Meal: 1,
-          Name: "Frozen Yogurt",
-          Description: "description A",
-          Date: new Date().toLocaleDateString("en-US"),
-          Time: new Date().getHours() + ":" + new Date().getMinutes(),
-          Calories: 159,
-          Id_User: 1,
-        },
-        {
-          Id_Meal: 2,
-          Name: "Frozen Yogurt",
-          Description: "description A",
-          Date: new Date().toLocaleDateString("en-US"),
-          Time: new Date().getHours() + ":" + new Date().getMinutes(),
-          Calories: 159,
-          Id_User: 1,
-        },
-      ];
+      createApiEndPoints(END_POINTS.USER_MEALS)
+      .fetch()
+      .then(response => {
+        this.meals = [...response.data];
+        this.meals.forEach(meal => {
+          meal.time = meal.date.split("T")[1];
+          meal.date = meal.date.split("T")[0];
+        })
+      })
+      .catch(error => console.log(error));
     },
 
     editItem(item) {
@@ -327,19 +319,33 @@ export default {
       });
     },
     save() {
-      if (this.$refs.mealsForm.validate()) {
+      // if (this.$refs.mealsForm.validate()) {
         if (this.editedIndex > -1) {
           Object.assign(this.meals[this.editedIndex], this.editedItem);
         } else {
           this.meals.push(this.editedItem);
+          // Add meal to the database
+          let addedMeal = {
+            Name: this.editedItem.name,
+            Description: this.editedItem.description,
+            Date: this.editedItem.date + "T" + this.editedItem.time,
+            Calories: parseInt(this.editedItem.calories)
+          };
+          // Sending the POST Request
+          createApiEndPoints(END_POINTS.ADD_MEAL)
+            .create({...addedMeal})
+            .then(response => {
+              // Success toolbar
+              this.snackbarSuccess = true;
+              this.snackbarSuccessMessage = response.data;
+            })
+            .catch(error => console.log(error));
         }
         this.close();
-        // Success toolbar
-        this.snackbarSuccess = true;
-      } else {
-        // Error Toolbar
-        this.snackbarError = true;
-      }
+      // } else {
+      //   // Error Toolbar
+      //   this.snackbarError = true;
+      // }
     },
 
     formatDate(date) {

@@ -4,6 +4,8 @@ export const BASE_URL = 'https://localhost:44373/api/';
 export const END_POINTS = {
 	AUTH_LOGIN: 'auth/login',
 	AUTH_REGISTER: 'auth/register/',
+	USER_MEALS: "meals/mymeals",
+	ADD_MEAL: "meals/addmeal"
 };
 
 export const authAxois = axios.create({

@@ -89,7 +89,7 @@ export default {
       ],
       passwordRule: [
         (password) =>
-          password.length >= 8 || "Password must have at least 8 characters",
+          password.length >= 1 || "Password must have at least 8 characters",
       ],
       loginButtonLoading: false,
     };
@@ -97,7 +97,7 @@ export default {
 
   computed: {
     getCredentials() {
-      return this.$store.state.currentUserCredentials;
+      return this.$store.state.currentToken;
     }
   },
 
@@ -112,7 +112,8 @@ export default {
           this.loginButtonLoading = false;
           // Get the token
           if(response.status === 200) {
-            this.$store.dispatch("getUserCredentials", {...response.data.userDisplay});
+            // this.$store.dispatch("getUserCredentials", response.data.userDisplay.token);
+            localStorage.setItem('L_T', response.data.userDisplay.token);
             this.$router.push("/userDashboard/Meals");
           }
 
