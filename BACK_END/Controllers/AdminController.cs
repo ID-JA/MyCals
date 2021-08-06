@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MY_CALS_BACKEND.Dto;
 using MY_CALS_BACKEND.Dto.Meals;
 using MY_CALS_BACKEND.Dto.UserAccount;
 using MY_CALS_BACKEND.Models;
@@ -24,15 +25,17 @@ namespace MY_CALS_BACKEND.Controllers
         private readonly IRepoMeals _repoMeals;
         private readonly IMapper _mapper;
         private readonly UserManager<UserAccount> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private int userId;
 
 
-        public AdminController(IRepoUserAccount repoUserAccount, IMapper mapper, UserManager<UserAccount> userManager, IHttpContextAccessor httpContextAccessor, IRepoMeals repoMeals)
+        public AdminController(IRepoUserAccount repoUserAccount, IMapper mapper, UserManager<UserAccount> userManager, RoleManager<Role> roleManager, IHttpContextAccessor httpContextAccessor, IRepoMeals repoMeals)
         {
             _repoUserAccount = repoUserAccount;
             _repoMeals = repoMeals;
             _mapper = mapper;
             _userManager = userManager;
+            _roleManager = roleManager;
             userId = Int32.Parse(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
@@ -72,6 +75,48 @@ namespace MY_CALS_BACKEND.Controllers
                 return BadRequest("Bad Action 😑 !!!");
             }
             return NotFound("This user dosen't existe 💢 ");
+        }
+
+        [HttpPost("addmanager")]
+        public async Task<IActionResult> AddManger(UserRegisterDTO userRegisterDTO)
+        {
+            var checkedEmail = await _userManager.FindByEmailAsync(userRegisterDTO.Email);
+
+            var user = _mapper.Map<UserAccount>(userRegisterDTO);
+
+            if (checkedEmail != null)
+            {
+                return BadRequest("This email already exist try again");
+            }
+            else
+            {
+                user.UserName = userRegisterDTO.Email.Split("@")[0] + userRegisterDTO.Email.Split("@")[1];
+            }
+
+            if (await _roleManager.RoleExistsAsync("Admin") == false && await _roleManager.RoleExistsAsync("Manager") == false && await _roleManager.RoleExistsAsync("User") == false)
+            {
+                var roles = new List<Role>{
+              new Role{Name="Admin"},
+              new Role{Name="Manager"},
+              new Role{Name="User"},
+
+            };
+
+                foreach (var role in roles)
+                {
+                    await _roleManager.CreateAsync(role);
+                }
+            }
+
+            var Result = await _userManager.CreateAsync(user, userRegisterDTO.Password);
+
+            if (Result.Succeeded)
+            {
+                //var confirmaEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                await _userManager.AddToRoleAsync(user, userRegisterDTO.Role);
+                return Ok("User Created Successfully");
+            }
+            return BadRequest(Result.Errors);
         }
 
 
@@ -152,11 +197,7 @@ namespace MY_CALS_BACKEND.Controllers
                 {
                     await _repoMeals.EditMeal(id_meal,mealForEditDTO) ;
                     var result = await _repoMeals.SaveMeal();
-                    if (result)
-                    {
-                        return Ok("This Meal has been  updated successfully 👍 !!!");
-                    }
-                    return NotFound("This meal dosen't existe 💢!!!");
+                    return result ? Ok("This Meal has been  updated successfully 👍 !!!") : (IActionResult)NotFound("This meal dosen't existe 💢!!!");
                 }
                 return BadRequest("Bad Action 😑 !!!");
             }
