@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hewlettpackard\\Desktop\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {}
+    "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hewlettpackard\\Desktop\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {
+    "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hewlettpackard\\Desktop\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
+        "projectUniqueName": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
         "projectName": "MY_CALS_BACKEND",
-        "projectPath": "C:\\Users\\hewlettpackard\\Desktop\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
-        "packagesPath": "C:\\Users\\hewlettpackard\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hewlettpackard\\Desktop\\MyCals\\BACK_END\\obj\\",
+        "projectPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
+        "packagesPath": "C:\\Users\\idais\\.nuget\\packages\\",
+        "outputPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\hewlettpackard\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\idais\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
