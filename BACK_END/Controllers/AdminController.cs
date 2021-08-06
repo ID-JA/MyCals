@@ -40,7 +40,27 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
 
-        [HttpGet("users/all")]
+        [HttpGet("users/mangers")]
+        public async Task<IActionResult> GetManagers()
+        {
+            var users = _repoUserAccount.GetUsersAccounts();
+            var usersForDisplayDTO = new List<UserForDisplayDTO>();
+            foreach (var user in users)
+            {
+                var roleOfUser = await _userManager.GetRolesAsync(user);
+                var userForDisplayDTO = _mapper.Map<UserForDisplayDTO>(user);
+                userForDisplayDTO.Role = roleOfUser[0];
+
+                if (userForDisplayDTO.Role == "Manager")
+                {
+                    usersForDisplayDTO.Add(userForDisplayDTO);
+                }
+            }
+            return Ok(usersForDisplayDTO);
+        }
+
+
+        [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
             var users = _repoUserAccount.GetUsersAccounts();
@@ -51,7 +71,7 @@ namespace MY_CALS_BACKEND.Controllers
                 var userForDisplayDTO = _mapper.Map<UserForDisplayDTO>(user);
                 userForDisplayDTO.Role = roleOfUser[0];
 
-                if (userForDisplayDTO.Role != "Admin")
+                if (userForDisplayDTO.Role == "Manager")
                 {
                     usersForDisplayDTO.Add(userForDisplayDTO);
                 }
