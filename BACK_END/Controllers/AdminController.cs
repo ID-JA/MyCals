@@ -59,6 +59,7 @@ namespace MY_CALS_BACKEND.Controllers
             return Ok(usersForDisplayDTO);
         }
 
+
         [HttpGet("users/{id}")]
         public async Task<IActionResult> GetUserInfo(int id)
         {
@@ -143,7 +144,6 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         [HttpGet("users/{id}/meals/{id_meal}")]
-
         public async Task<IActionResult> GetUserMeal(int id, int id_meal)
         {
             var user = await _repoUserAccount.GetUserById(id);
@@ -165,7 +165,6 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         [HttpDelete("users/{id}/meals/{id_meal}/delete")]
-
         public async Task<IActionResult> DeleteUserMeal(int id, int id_meal)
         {
             var user = await _repoUserAccount.GetUserById(id);
@@ -187,7 +186,6 @@ namespace MY_CALS_BACKEND.Controllers
         }
 
         [HttpPut("users/{id}/meals/{id_meal}/edit")]
-
         public async Task<IActionResult> EditUserMeal(int id, int id_meal,MealForEditDTO mealForEditDTO)
         {
             var user = await _repoUserAccount.GetUserById(id);
