@@ -27,7 +27,7 @@
             v-for="(item, index) in accountRouteObj"
             :key="index"
             link
-            :to="item.route"
+            @click="handleSignout"
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
@@ -35,7 +35,15 @@
       </v-menu>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" class="primary white--text" app>
-      <div class="subheading white--text text-center my-16 dashboard__app-name">
+      <div
+        class="
+          subheading
+          white--text
+          text-center
+          my-16
+          dashboard__app-name dashboard-title
+        "
+      >
         MyCals
       </div>
 
@@ -84,7 +92,11 @@
                   size="25"
                 ></v-rating>
                 <v-form ref="opinionForm">
-                  <v-textarea v-model="opinion" :rules="opinionRule" label="Opinion"></v-textarea>
+                  <v-textarea
+                    v-model="opinion"
+                    :rules="opinionRule"
+                    label="Opinion"
+                  ></v-textarea>
                 </v-form>
               </v-card-text>
 
@@ -96,7 +108,7 @@
                   color="primary"
                   text
                   :loading="rateusLoading"
-                  @click="Ratingdialog = false;"
+                  @click="Ratingdialog = false"
                 >
                   Cancel
                 </v-btn>
@@ -135,27 +147,41 @@ export default {
       // Binding All links
       items: [
         { icon: "restaurant", title: "Meals", route: "/userDashboard/Meals" },
-        { icon: "equalizer", title: "Statistics", route: "/userDashboard/UserStats" },
+        {
+          icon: "equalizer",
+          title: "Statistics",
+          route: "/userDashboard/UserStats",
+        },
       ],
       accountRouteObj: [
         { title: "Settings", route: "/Settings" },
         { title: "Sign out", route: "/Signout" },
       ],
       // Rule for description length
-      opinionRule: [(value) => value.length >= 20 || "Opinion must be 20 characters or more"]
-    }
+      opinionRule: [
+        (value) =>
+          value.length >= 20 || "Opinion must be 20 characters or more",
+      ],
+    };
   },
   methods: {
     // Rating the app functionality
     rateApp() {
-      if(this.$refs.opinionForm.validate() && this.rating > 0) {
+      if (this.$refs.opinionForm.validate() && this.rating > 0) {
         this.rateusLoading = true;
         console.log(this.rating + "" + this.opinion);
         this.rateusLoading = false;
         this.Ratingdialog = false;
       }
     },
-  }
+
+    // Sign out
+    handleSignout() {
+      console.log("entered");
+      localStorage.removeItem("L_T");
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 

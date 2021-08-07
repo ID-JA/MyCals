@@ -1,36 +1,5 @@
 <template>
-  <div class="managerDashboard">
-    <v-app-bar app>
-      <v-toolbar-title class="text-uppercase grey--text">
-        <span class="">My</span>
-        <span class="primary--text">Cals</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-menu offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-img
-            src="https://source.unsplash.com/random/50x50"
-            max-width="40"
-            class="rounded-circle"
-            style="cursor: pointer"
-            v-bind="attrs"
-            v-on="on"
-          ></v-img>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in accountRouteObj"
-            :key="index"
-            link
-            :to="item.route"
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-app-bar>
-
+  <div class="users">
     <v-container>
       <!-- Searching for a user -->
       <v-row>
@@ -82,13 +51,9 @@
 
 <script>
 export default {
-  name: "managerDashboard",
+  name: "Users",
   data() {
     return {
-      accountRouteObj: [
-        { title: "Settings", route: "/Settings" },
-        { title: "Signout" },
-      ],
       searchingUser: "",
       dialog: false,
       dialogDelete: false,
@@ -160,12 +125,6 @@ export default {
   },
 
   methods: {
-    // editItem(item) {
-    //   this.editedIndex = this.users.indexOf(item);
-    //   this.editedItem = Object.assign({}, item);
-    //   this.dialog = true;
-    // },
-
     deleteItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -192,15 +151,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
-    // save() {
-    //   if (this.editedIndex > -1) {
-    //     Object.assign(this.users[this.editedIndex], this.editedItem);
-    //   } else {
-    //     this.users.push(this.editedItem);
-    //   }
-    //   this.close();
-    // },
   },
 };
 </script>

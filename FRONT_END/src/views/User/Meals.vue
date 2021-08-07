@@ -153,9 +153,6 @@
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
-          <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
-          </template>
         </v-data-table>
       </v-container>
     </v-container>
@@ -267,21 +264,21 @@ export default {
 
   mounted() {
     // Get Meals of current user
-      this.initialize();
+    this.initialize();
   },
 
   methods: {
     initialize() {
       createApiEndPoints(END_POINTS.USER_MEALS)
-      .fetch()
-      .then(response => {
-        this.meals = [...response.data];
-        this.meals.forEach(meal => {
-          meal.time = meal.date.split("T")[1];
-          meal.date = meal.date.split("T")[0];
+        .fetch()
+        .then((response) => {
+          this.meals = [...response.data];
+          this.meals.forEach((meal) => {
+            meal.time = meal.date.split("T")[1];
+            meal.date = meal.date.split("T")[0];
+          });
         })
-      })
-      .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     editItem(item) {
@@ -299,10 +296,10 @@ export default {
     deleteItemConfirm() {
       this.meals.splice(this.editedIndex, 1);
       // API
-      createApiEndPoints(END_POINTS.DELETE_MEAL+""+this.editedItem.id_Meal)
+      createApiEndPoints(END_POINTS.DELETE_MEAL + "" + this.editedItem.id_Meal)
         .delete()
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
 
       this.closeDelete();
       this.snackbarSuccess = true;
@@ -325,39 +322,41 @@ export default {
     },
     save() {
       // if (this.$refs.mealsForm.validate()) {
-        if (this.editedIndex > -1) {
-          Object.assign(this.meals[this.editedIndex], this.editedItem);
-          // API
-          let editItem = {
-            Name: this.editedItem.name,
-            Date: this.editedItem.date+"T"+this.editedItem.time,
-            Description: this.editedItem.description,
-            Calories: this.editedItem.calories
-          }
-          createApiEndPoints(END_POINTS.UPDATE_MEAL+""+this.editedItem.id_Meal)
-            .update({...editItem})
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-        } else {
-          this.meals.push(this.editedItem);
-          // Add meal to the database
-          let addedMeal = {
-            Name: this.editedItem.name,
-            Description: this.editedItem.description,
-            Date: this.editedItem.date + "T" + this.editedItem.time,
-            Calories: parseInt(this.editedItem.calories)
-          };
-          // Sending the POST Request
-          createApiEndPoints(END_POINTS.ADD_MEAL)
-            .create({...addedMeal})
-            .then(response => {
-              // Success toolbar
-              this.snackbarSuccess = true;
-              this.snackbarSuccessMessage = response.data;
-            })
-            .catch(error => console.log(error));
-        }
-        this.close();
+      if (this.editedIndex > -1) {
+        Object.assign(this.meals[this.editedIndex], this.editedItem);
+        // API
+        let editItem = {
+          Name: this.editedItem.name,
+          Date: this.editedItem.date + "T" + this.editedItem.time,
+          Description: this.editedItem.description,
+          Calories: parseInt(this.editedItem.calories),
+        };
+        createApiEndPoints(
+          END_POINTS.UPDATE_MEAL + "" + this.editedItem.id_Meal
+        )
+          .update({ ...editItem })
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+      } else {
+        this.meals.push(this.editedItem);
+        // Add meal to the database
+        let addedMeal = {
+          Name: this.editedItem.name,
+          Description: this.editedItem.description,
+          Date: this.editedItem.date + "T" + this.editedItem.time,
+          Calories: parseInt(this.editedItem.calories),
+        };
+        // Sending the POST Request
+        createApiEndPoints(END_POINTS.ADD_MEAL)
+          .create({ ...addedMeal })
+          .then((response) => {
+            // Success toolbar
+            this.snackbarSuccess = true;
+            this.snackbarSuccessMessage = response.data;
+          })
+          .catch((error) => console.log(error));
+      }
+      this.close();
       // } else {
       //   // Error Toolbar
       //   this.snackbarError = true;

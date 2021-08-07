@@ -1,18 +1,11 @@
 <template>
   <div class="login">
     <!-- Error in Login Snackbar -->
-    <v-snackbar
-      v-model="loginSnackbar"
-    >
+    <v-snackbar v-model="loginSnackbar">
       {{ errorMessage }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          text
-          v-bind="attrs"
-          @click="loginSnackbar = false"
-        >
+        <v-btn color="pink" text v-bind="attrs" @click="loginSnackbar = false">
           Close
         </v-btn>
       </template>
@@ -20,7 +13,12 @@
     <Navbar />
     <v-container>
       <h2 class="primary--text text-center">Log in</h2>
-      <v-form ref="loginForm" @submit.prevent="loginHandle" class="d-block mx-auto" style="max-width: 400px">
+      <v-form
+        ref="loginForm"
+        @submit.prevent="handleLogin"
+        class="d-block mx-auto"
+        style="max-width: 400px"
+      >
         <v-text-field
           label="Email"
           v-model="loggedinUser.Email"
@@ -28,21 +26,26 @@
           :rules="emailRule"
         ></v-text-field>
         <v-text-field
-            v-model="loggedinUser.Password"
-            prepend-icon="lock"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="passwordRule"
-            :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Password"
-            hint="At least 8 characters"
-            counter
-            @click:append="show1 = !show1"
-          ></v-text-field>
+          v-model="loggedinUser.Password"
+          prepend-icon="lock"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="passwordRule"
+          :type="show1 ? 'text' : 'password'"
+          name="input-10-1"
+          label="Password"
+          hint="At least 8 characters"
+          counter
+          @click:append="show1 = !show1"
+        ></v-text-field>
         <router-link to="" class="font-weight-bold"
           >Forgot password?</router-link
         >
-        <v-btn depressed class="primary my-4 text-capitalize" block :loading="loginButtonLoading" @click="loginHandle"
+        <v-btn
+          depressed
+          class="primary my-4 text-capitalize"
+          block
+          :loading="loginButtonLoading"
+          @click="handleLogin"
           >Log in</v-btn
         >
         <p class="text-center">
@@ -70,9 +73,9 @@ export default {
       loginSnackbar: false,
       errorMessage: "Login failed, please verify your information",
       show1: false,
-        show2: true,
-        show3: false,
-        show4: false,
+      show2: true,
+      show3: false,
+      show4: false,
       loggedinUser: {
         Email: "",
         Password: "",
@@ -80,7 +83,7 @@ export default {
       emailRule: [
         function (email) {
           let emailRegex = new RegExp(
-            "^[a-zA-Z0-9]+((._-)[a-zA-Z0-9]+)?@(gmail|yahoo|hotmail).(com|fr|uk|net)$"
+            "^[a-zA-Z0-9]+((._-)[a-zA-Z0-9]+)?@[a-zA-Z]+.(com|fr|uk|net)$"
           );
           if (!emailRegex.test(email)) {
             return "please enter a valid email adresse";
@@ -98,37 +101,40 @@ export default {
   computed: {
     getCredentials() {
       return this.$store.state.currentToken;
-    }
+    },
   },
 
   methods: {
-    loginHandle() {
+    handleLogin() {
       this.loginButtonLoading = true;
-      if(this.$refs.loginForm.validate()) {
-
+      if (this.$refs.loginForm.validate()) {
         createApiEndPoints(END_POINTS.AUTH_LOGIN)
-        .create({...this.loggedinUser})
-        .then((response) => {
-          this.loginButtonLoading = false;
-          // Get the token
-          if(response.status === 200) {
-            // this.$store.dispatch("getUserCredentials", response.data.userDisplay.token);
-            localStorage.setItem('L_T', response.data.userDisplay.token);
-            this.$router.push("/userDashboard/Meals");
-          }
-
-        })
-        .then(error => console.log(error));
-
+          .create({ ...this.loggedinUser })
+          .then((response) => {
+            this.loginButtonLoading = false;
+            // Get the token
+            if (response.status === 200) {
+              // this.$store.dispatch("getUserCredentials", response.data.userDisplay.token);
+              localStorage.setItem("L_T", response.data.userDisplay.token);
+              // Get the current logged in user role to redirect to the right dashboard
+              if(response.data.userDisplay.role == "User") {
+                this.$router.push({ name: "UserDashboardMeals" }, () => {
+                  location.reload();
+                });
+              } else if(response.data.userDisplay.role == "Manager") {
+                this.$router.push({ name: "managerDashboard" });
+              } else if(response.data.userDisplay.role == "Admin") {
+                this.$router.push({ name: "AdminDashboardAppStats" });
+              }
+            }
+          })
+          .then((error) => console.log(error));
       } else {
-
         this.loginButtonLoading = false;
         this.loginSnackbar = true;
-
       }
-
-    }
-  }
+    },
+  },
 };
 </script>
 

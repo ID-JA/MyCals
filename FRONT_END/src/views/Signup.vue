@@ -145,7 +145,8 @@ export default {
   data(vm) {
     return {
       snackbarSignupError: false,
-      errorMessage: "Registration failed. Please double check your information!",
+      errorMessage:
+        "Registration failed. Please double check your information!",
       newUser: {
         FirstName: "",
         LastName: "",
@@ -190,7 +191,9 @@ export default {
           }
         },
       ],
-      confirmPasswordRule: [(password) => password == this.newUser.Password || "Password not match"],
+      confirmPasswordRule: [
+        (password) => password == this.newUser.Password || "Password not match",
+      ],
       genderRule: [
         (gender) => gender.length >= 0 || "Please select your gender",
       ],

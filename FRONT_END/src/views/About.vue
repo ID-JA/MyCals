@@ -10,6 +10,6 @@ export default {
   name: "About",
   components: {
     Navbar,
-  }
+  },
 };
 </script>

@@ -11,7 +11,11 @@
       <v-card outlined max-width="600" class="mx-auto testimonial__card">
         <v-row wrap class="align-items-stretch">
           <v-col cols="12" sm="12" md="4">
-              <img src="https://source.unsplash.com/random" alt="" class="testimonial__img" />
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="testimonial__img"
+            />
             <!-- <v-responsive>
             </v-responsive> -->
           </v-col>
@@ -47,9 +51,9 @@ import carousel from "vue-owl-carousel";
 export default {
   name: "TestimonialCard",
   data() {
-      return {
-          rating: 4,
-      }
+    return {
+      rating: 4,
+    };
   },
   components: {
     carousel,
@@ -59,20 +63,20 @@ export default {
 
 <style lang="scss" scoped>
 .testimonial__card {
-    position: relative;
+  position: relative;
 
-    .ikhan:after {
-        contain: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 10px;
-        height: 10px;
-        background-color: red;
-}
+  .ikhan:after {
+    contain: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+  }
 }
 .testimonial__img {
-    height: 240px;
-    object-fit: contain;
+  height: 240px;
+  object-fit: contain;
 }
 </style>

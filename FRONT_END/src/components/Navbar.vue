@@ -3,7 +3,7 @@
     <v-app-bar class="white" app elevate-on-scroll>
       <v-container class="d-flex align-center justify-space-between">
         <div class="nav__logo">
-          <span class=" text-h5">My</span>
+          <span class="text-h5">My</span>
           <span class="primary--text text-h5">Cals</span>
         </div>
         <div class="banner__humburger" @click="toggleNavbar">
@@ -14,8 +14,8 @@
         <div class="nav__links">
           <router-link to="/" exact>home</router-link>
           <router-link to="/About">about us</router-link>
-          <router-link to="/Login" >log in</router-link>
-          <router-link to="/Signup" >sign up</router-link>
+          <router-link to="/Login">log in</router-link>
+          <router-link to="/Signup">sign up</router-link>
         </div>
       </v-container>
     </v-app-bar>
@@ -74,23 +74,23 @@ a.router-link-exact-active {
 }
 
 // navbar toggle
-  .banner__humburger {
-    display: none;
-    // position: fixed;
-    // right: 2%;
-    // top: 3%;
-    // z-index: 99;
-    cursor: pointer;
+.banner__humburger {
+  display: none;
+  // position: fixed;
+  // right: 2%;
+  // top: 3%;
+  // z-index: 99;
+  cursor: pointer;
 
-    .line {
-      display: block;
-      width: 30px;
-      height: 2px;
-      background: $black-color;
-      margin: 5px;
-      transition: all 0.3s ease-in-out;
-    }
+  .line {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: $black-color;
+    margin: 5px;
+    transition: all 0.3s ease-in-out;
   }
+}
 
 @media screen and (max-width: 767px) {
   .banner__humburger {

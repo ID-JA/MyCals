@@ -1,18 +1,30 @@
 @import "../scss/variables";
 
 body {
-    position: relative;
+  position: relative;
 }
 
 a {
-    text-decoration: none;
-    color: $black-color !important;
+  text-decoration: none;
+  color: $black-color !important;
 
-    &:hover {
-        text-decoration: none;
-    }
+  &:hover {
+    text-decoration: none;
+  }
 }
 
-p, h1, h2, h3, h4, h5, ul {
-    margin: 0 !important;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+ul {
+  margin: 0 !important;
+}
+
+.dashboard-title {
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 5px;
 }

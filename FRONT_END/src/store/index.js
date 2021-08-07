@@ -10,12 +10,12 @@ export default new Vuex.Store({
   mutations: {
     getUserToken: (state, token) => {
       state.currentToken = token;
-    }
+    },
   },
   actions: {
     getUserToken: (context, token) => {
-      context.commit('getUserToken', token);
-    }
+      context.commit("getUserToken", token);
+    },
   },
   modules: {},
 });

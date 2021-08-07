@@ -8,7 +8,10 @@ import UserDashboard from "../views/User/UserDashboard.vue";
 import Meals from "../views/User/Meals.vue";
 import UserStats from "../views/User/UserStats.vue";
 import managerDashboard from "../views/Manager/managerDashboard.vue";
-
+import AdminDashboard from "../views/Admin/AdminDashboard.vue";
+import AppStats from "../views/Admin/AppStats.vue";
+import Users from "../views/Admin/Users.vue";
+import Managers from "../views/Admin/Managers.vue";
 
 Vue.use(VueRouter);
 
@@ -39,19 +42,43 @@ const routes = [
     component: UserDashboard,
     children: [
       {
+        name: "UserDashboardMeals",
         path: "Meals",
         component: Meals,
       },
       {
+        name: "UserDashboardStats",
         path: "UserStats",
         component: UserStats,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/managerDashboard",
     name: "managerDashboard",
     component: managerDashboard,
+  },
+  {
+    path: "/AdminDashboard",
+    name: "AdminDashboard",
+    component: AdminDashboard,
+    children: [
+      {
+        name: "AdminDashboardAppStats",
+        path: "AppStats",
+        component: AppStats,
+      },
+      {
+        name: "AdminDashboardUsers",
+        path: "Users",
+        component: Users,
+      },
+      {
+        name: "AdminDashboardManagers",
+        path: "Managers",
+        component: Managers,
+      },
+    ],
   },
 ];
 
