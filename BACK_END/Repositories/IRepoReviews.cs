@@ -34,7 +34,10 @@ namespace MY_CALS_BACKEND.Repositories
         {
            return _dbContext.Reviews.Where(r=> r.Nbr_Stars >= 3).ToList();
         }
-
+        /// <summary>
+        /// Save Data 
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> Save()
         {
             return (await _dbContext.SaveChangesAsync() > 0);
