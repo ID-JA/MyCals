@@ -51,6 +51,11 @@ namespace MY_CALS_BACKEND.Controllers
             return BadRequest("Something isn't valid pelase try again !!!");
         }
 
+        /// <summary>
+        /// Get All Reviews 
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet("all")]
         [Authorize]
         public async Task<IActionResult> GetReviews()
