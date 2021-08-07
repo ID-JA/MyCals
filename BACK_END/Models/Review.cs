@@ -17,6 +17,8 @@ namespace MY_CALS_BACKEND.Models
 
         public string Text { get; set; }
 
+        public int Nbr_Stars { get; set; }
+
         public int Id_User { get; set; }
 
         [ForeignKey("Id_User")]

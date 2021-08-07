@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MY_CALS_BACKEND.Dto.Manager;
+using MY_CALS_BACKEND.Dto.Review;
 
 namespace MY_CALS_BACKEND.Mappings
 {
@@ -35,6 +36,9 @@ namespace MY_CALS_BACKEND.Mappings
 
             CreateMap<UserAccount, ManagerForDisplayDTO>();
             CreateMap<ManagerForDisplayDTO, UserAccount>();
+
+            CreateMap<Review, ReviewForAddDTO>();
+            CreateMap<ReviewForAddDTO, Review>();
         }
     }
 }
