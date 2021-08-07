@@ -32,7 +32,7 @@ namespace MY_CALS_BACKEND.Repositories
 
         public List<Review> GetReviews()
         {
-           return _dbContext.Reviews.ToList();
+           return _dbContext.Reviews.Where(r=> r.Nbr_Stars >= 3).ToList();
         }
 
         public async Task<bool> Save()
