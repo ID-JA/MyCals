@@ -9,6 +9,8 @@ namespace MY_CALS_BACKEND.Repositories
 {
     public interface IRepoReviews
     {
+
+        public List<Review> GetReviews();
         public void AddReview<T>(T entity) where T : class;
         public Task<bool> Save();
 
@@ -26,6 +28,11 @@ namespace MY_CALS_BACKEND.Repositories
         public async void AddReview<T>(T entity) where T : class
         {
             await _dbContext.AddAsync(entity);
+        }
+
+        public List<Review> GetReviews()
+        {
+           return _dbContext.Reviews.ToList();
         }
 
         public async Task<bool> Save()

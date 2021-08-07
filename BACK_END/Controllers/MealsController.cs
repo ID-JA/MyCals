@@ -59,7 +59,7 @@ namespace MY_CALS_BACKEND.Controllers
 
         // POST api/<MealsController>
         [HttpPost("addmeal")]
-        [Authorize]
+        [Authorize("User")]
         public async Task<IActionResult> AddNewMeal(MealForAddDTO mealForAdd)
         {
             mealForAdd.Id_User = userId;

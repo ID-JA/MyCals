@@ -39,6 +39,9 @@ namespace MY_CALS_BACKEND.Mappings
 
             CreateMap<Review, ReviewForAddDTO>();
             CreateMap<ReviewForAddDTO, Review>();
+
+            CreateMap<Review, ReviewForDisplayDTO>();
+            CreateMap<ReviewForDisplayDTO, Review>();
         }
     }
 }
