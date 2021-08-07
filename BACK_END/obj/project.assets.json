@@ -8196,11 +8196,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
+      "projectUniqueName": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
       "projectName": "MY_CALS_BACKEND",
-      "projectPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
+      "projectPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\MY_CALS_BACKEND.csproj",
       "packagesPath": "C:\\Users\\idais\\.nuget\\packages\\",
-      "outputPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\MY_CALS\\MyCals\\BACK_END\\obj\\",
+      "outputPath": "E:\\User_ID\\Data\\Dev\\Builds .NET\\.NET Core\\MyCals\\BACK_END\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\idais\\AppData\\Roaming\\NuGet\\NuGet.Config",
